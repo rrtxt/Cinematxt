@@ -1,4 +1,4 @@
-export default function Navbar(){
+const Navbar = () => {
     return <nav className="bg-gray-800 px-6 py-3">
     <div className="text-xl max-w-full mx-auto px-4 sm:px-6 lg:px-8">
       <div className="flex items-center justify-between h-16">
@@ -21,6 +21,6 @@ export default function Navbar(){
       </div>
     </div>
   </nav>
-  
-  
 }
+
+export default Navbar
