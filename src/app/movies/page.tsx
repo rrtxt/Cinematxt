@@ -1,7 +1,7 @@
 import MainLayout from "../layouts/main";
-import Image from "next/image";
 import Card from "../components/card";
 import Movie from "../models/movie";
+import Link from "next/link";
 
 const MoviesPage = () => {
     return <div>
@@ -14,14 +14,22 @@ const MoviesPage = () => {
 const MoviesContent = async () => {
     const data = await getMovies()
     const movies : Movie[] = []
-    data.forEach((element : any)  => {
-        movies.push(Movie.fromJSON(element))
-    });
+
+    data.map((value : Movie, key : string) => {
+        movies.push(Movie.fromJSON(key, value))
+    })
+
     return <div className="mt-5 mx-10">
         <h2 className="text-2xl font-medium">Movies List</h2>
         <div className="mt-5 grid 2xl:grid-cols-6 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3">
             {movies.map((value, key) => (
-                <h2 key={key}>{value.title}</h2>
+                <Link key={key} 
+                href={{ pathname: `/movie/${value.id}`, 
+                        query: 
+                            {movie : 'coba'}
+                     }}>
+                    <Card movie={value}/>
+                </Link>
             ))}
         </div>
     </div>
