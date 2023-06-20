@@ -1,5 +1,6 @@
 {
   "name": "learn_1",
+  "type": "module",
   "version": "0.1.0",
   "private": true,
   "scripts": {
