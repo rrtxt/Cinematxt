@@ -17,7 +17,7 @@ const Card = ({movie} : {movie : Movie}) => {
       
       return (
         <div>
-                <div className="group mt-5 flex items-end justify-center w-60 h-80
+                <div className="group flex items-end justify-center w-60 h-80
                   bg-gray-500 rounded-xl mx-auto hover:" style={{ ...cardStyle, ...hoverStyle }}>
                   <h5 className="pb-2 text-center transition transform group-hover:-translate-y-5">
                     {movie.title}
