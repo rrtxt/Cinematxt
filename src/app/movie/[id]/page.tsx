@@ -1,4 +1,5 @@
 import Card from "@/app/components/card"
+import Seat from "@/app/components/seat"
 import MovieHandler from "@/app/handlers/movieHandler"
 import formatDate from "@/app/helpers/dateFormat"
 import MainLayout from "@/app/layouts/main"
@@ -17,6 +18,7 @@ const MoviePage = async ({ params } : {params : {id : string}}) => {
     return (
         <MainLayout>
             <MovieDetail movie={movie}/>
+            <MovieOrder/>
         </MainLayout>
     )
 }
@@ -26,7 +28,7 @@ const MovieDetail = ({movie} : {movie : Movie|null}) => {
     const formattedDate = release_date? formatDate(release_date) : 'Undefined date'
     return (
         <div className="bg-slate-600">
-            <div className="flex items-center py-10 px-80 gap-20">
+            <div className="flex flex-col items-center py-10 sm:px-10 md:px-30 md:flex-row lg:px-60 xl:px-80 gap-20">
                 {movie && <Card movie={movie}/>}
                 <div>
                     <h1 className=" text-xl font-bold">Description</h1>
@@ -47,6 +49,37 @@ const MovieDetail = ({movie} : {movie : Movie|null}) => {
             </div>
         </div>
     )
+}
+
+const MovieOrder = () => {
+    return (
+        <div>
+            <SeatSelection/>
+        </div>
+    )
+}
+
+const SeatSelection = () => {
+    const data = Array.from({ length: 64 }, (_, index) => ({ id: index + 1, name: `${index + 1}` }));
+
+    const rows = 8; // Number of rows
+    const cols = 8; // Number of columns
+  
+    return (
+      <div>
+        {Array(rows)
+          .fill(0)
+          .map((_, rowIndex) => (
+            <div key={rowIndex} className="flex flex-row gap-3">
+              {data.slice(rowIndex * cols, rowIndex * cols + cols).map((item) => (
+                <div key={item.id} className="flex flex-col my-3">
+                 <Seat id={item.id}/> 
+                </div>
+              ))}
+            </div>
+          ))}
+      </div>
+    );
 }
 
 // const Movie

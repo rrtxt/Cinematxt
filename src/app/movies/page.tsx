@@ -29,15 +29,4 @@ const MoviesContent = async () => {
     </div>
 }
 
-
-
-const getMovies = async () => {
-    const res = await fetch('https://seleksi-sea-2023.vercel.app/api/movies')
-
-    if(!res.ok){
-        throw new Error('Failed to fetch data')
-    }
-    return res.json()
-}
-
 export default MoviesPage
