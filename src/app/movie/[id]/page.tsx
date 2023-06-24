@@ -1,10 +1,9 @@
 import Card from "@/app/components/card"
-import Seat from "@/app/components/seat"
 import MovieHandler from "@/app/handlers/movieHandler"
 import formatDate from "@/app/helpers/dateFormat"
 import MainLayout from "@/app/layouts/main"
 import Movie from "@/app/models/movie"
-import SeatSelection from "./seatSelection"
+import SeatSelection from "../../components/seatSelection"
 
 
 const MoviePage = async ({ params } : {params : {id : string}}) => {
@@ -51,14 +50,6 @@ const MovieDetail = ({movie} : {movie : Movie|null}) => {
         </div>
     )
 }
-
-// const MovieOrder = ({movie} : {movie : Movie|null}) => {
-//     return (
-//         <div>
-//             <SeatSelection movie={movie}/>
-//         </div>
-//     )
-// }
 
 
 export default MoviePage
