@@ -1,6 +1,6 @@
 import Card from "@/app/components/card"
 import MovieHandler from "@/app/handlers/movieHandler"
-import formatDate from "@/app/helpers/dateFormat"
+import formatDate from "@/helpers/dateFormat"
 import MainLayout from "@/app/layouts/main"
 import Movie from "@/app/models/movie"
 import SeatSelection from "../../components/seatSelection"
