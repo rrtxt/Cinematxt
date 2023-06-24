@@ -40,15 +40,7 @@ const LoginForm = () => {
                 name="username"
                 isRequired={true}
               />
-            <TextField
-                id='email'
-                type='text'
-                label='Confirm Password'
-                className="mt-5"
-                name="username"
-                isRequired={true}
-              />
-            <button className="mt-10 px-24 py-2 rounded-md bg-yellow-500 hover:bg-yellow-700">
+            <button className="mt-10 mb-5 px-24 py-2 rounded-md bg-yellow-500 hover:bg-yellow-700">
                 Submit
             </button>
             </form>
