@@ -1,16 +1,14 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from "@/lib/prisma";
 import Movie from "../models/movie";
 
 class MovieHandler{
-    private static prisma = new PrismaClient()
-    
     static getAllMovies = async ()=> {
-        const allMovies : Movie[] = await this.prisma.movie.findMany()
+        const allMovies : Movie[] = await prisma.movie.findMany()
         return allMovies
     }
 
     static getMovieById = async (movieId : number) => {
-        const movie : Movie|null = await this.prisma.movie.findUnique({
+        const movie : Movie|null = await prisma.movie.findUnique({
             where : {
                 id : movieId
             }

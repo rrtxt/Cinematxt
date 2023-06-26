@@ -11,7 +11,8 @@
 #prisma
 /prisma/*.db
 /prisma/migrations
-/prisma/*
+/prisma/*.db-journal
+/prisma/@prisma
 
 # next.js
 /.next/
