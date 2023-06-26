@@ -3,7 +3,10 @@
 import Link from "next/link"
 import TextField from "../components/TextField"
 import MainLayout from "../layouts/main"
-import { useState } from "react"
+import { FormEventHandler, useState } from "react"
+import { useRouter } from "next/navigation"
+import axios from "axios"
+import { toast } from "react-toastify"
 
 const RegisterPage = () => {
     return (
@@ -22,9 +25,24 @@ const RegisterForm = () => {
         password : '',
         age : 0
     })
+    const router = useRouter()
+
+    const handleRegister : FormEventHandler<HTMLFormElement> = async (e) => {
+        e.preventDefault()
+        try {
+            await axios.post('/api/auth/register', data)
+            toast.success('Account created! Redirecting to login...')
+            setTimeout(() => {
+                router.push('login')   
+            });
+        } catch (e) {
+            toast.error('Something went wrong!')
+        }
+    }
+
     return (
         <div className="flex items-center justify-center">
-            <form className="border rounded-xl py-5 px-12 my-10">
+            <form className="border rounded-xl py-5 px-12 my-10" method="POST" onSubmit={handleRegister}>
                 <h1 className="text-center">Register</h1>
             <TextField
                 id='email'
