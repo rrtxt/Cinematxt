@@ -15,7 +15,7 @@ model User {
   username String
   password String
   age Int
-  balance Int @default(0)
+  balance Int? @default(0)
   orders Order[]
 }
 

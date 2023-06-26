@@ -2,6 +2,7 @@
   "name": "learn_1",
   "version": "0.1.0",
   "private": true,
+  "type": "commonjs",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -27,6 +28,7 @@
     "typescript": "5.1.3"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
     "prisma": "^4.16.1"
   }
 }
