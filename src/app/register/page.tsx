@@ -1,9 +1,6 @@
-'use client'
-
 import Link from "next/link"
 import TextField from "../components/TextField"
 import MainLayout from "../layouts/main"
-import { FormEventHandler } from "react"
 
 const RegisterPage = () => {
     return (
@@ -16,10 +13,6 @@ const RegisterPage = () => {
 }
 
 const RegisterForm = () => {
-    const handleSubmit : FormEventHandler<HTMLFormElement> = async (e) => {
-        e.preventDefault()
-        
-    }
     return (
         <div className="flex items-center justify-center">
             <form className="border rounded-xl py-5 px-12 my-10">
@@ -36,14 +29,6 @@ const RegisterForm = () => {
                 id='email'
                 type='text'
                 label='Email'
-                className="mt-5"
-                name="username"
-                isRequired={true}
-              />
-            <TextField
-                id='email'
-                type='number'
-                label='Age'
                 className="mt-5"
                 name="username"
                 isRequired={true}
