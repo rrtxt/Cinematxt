@@ -1,25 +1,13 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
-generator client {
-  provider = "prisma-client-js"
-  output   = "@prisma/client"
-  // binaryTargets = ["native"]
-}
-
-model User {
-  id       Int     @id @default(autoincrement())
-  email    String  @unique
-  username String
-  password String
-  age      Int
-  balance  Int?    @default(0)
-  orders   Order[]
-}
-
-model Movie {
+model movie {
   id           Int      @id @default(autoincrement())
   title        String
   description  String
@@ -27,14 +15,27 @@ model Movie {
   poster_url   String
   age_rating   Int
   ticket_price Int
-  orders       Order[]
+  order        order[]
 }
 
-model Order {
+model order {
   id         Int      @id @default(autoincrement())
   order_Date DateTime
   userId     Int?
   movieId    Int?
-  movie      Movie?   @relation(fields: [movieId], references: [id])
-  user       User?    @relation(fields: [userId], references: [id])
+  movie      movie?   @relation(fields: [movieId], references: [id], map: "Order_movieId_fkey")
+  user       user?    @relation(fields: [userId], references: [id], map: "Order_userId_fkey")
+
+  @@index([movieId], map: "Order_movieId_fkey")
+  @@index([userId], map: "Order_userId_fkey")
+}
+
+model user {
+  id       Int     @id @default(autoincrement())
+  email    String  @unique(map: "User_email_key")
+  username String
+  password String
+  age      Int
+  balance  Int?    @default(0)
+  order    order[]
 }
