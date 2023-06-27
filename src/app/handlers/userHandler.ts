@@ -1,6 +1,5 @@
 import prisma from "@/lib/prisma"
 import { hash } from "bcrypt"
-
 class UserHandler{
     static registerUser = async ({email, username, age, password} : {email : string, username : string, age : number, password : string}) => {
         const exists = await prisma.user.findUnique({
@@ -9,8 +8,8 @@ class UserHandler{
             }
         })
         if(exists) return 'Failed'
-        console.log(password)
-        const user = await prisma.user.create({
+        console.log(password);
+        await prisma.user.create({
             data : { 
                 email,
                 username,
@@ -19,7 +18,6 @@ class UserHandler{
                 password : await hash(password, 10)
             }
         })
-
         return 'Success'
     }
 }

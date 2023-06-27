@@ -42,7 +42,7 @@ const RegisterForm = () => {
 
     return (
         <div className="flex items-center justify-center">
-            <form className="border rounded-xl py-5 px-12 my-10" method="POST" onSubmit={handleRegister}>
+            <form className="border rounded-xl py-5 px-12 my-10" onSubmit={handleRegister}>
                 <h1 className="text-center">Register</h1>
             <TextField
                 id='email'

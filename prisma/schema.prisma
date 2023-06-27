@@ -1,44 +1,40 @@
-generator client {
-  provider      = "prisma-client-js"
-  output        = "@prisma/client"
-  binaryTargets = ["native"]
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
 }
 
-datasource db {
-  provider = "sqlite"
-  url = env("DATABASE_URL")
+generator client {
+  provider = "prisma-client-js"
+  output   = "@prisma/client"
+  // binaryTargets = ["native"]
 }
 
 model User {
-  id Int @id @default(autoincrement())
-  email String @unique
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
   username String
   password String
-  age Int
-  balance Int? @default(0)
-  orders Order[]
+  age      Int
+  balance  Int?    @default(0)
+  orders   Order[]
 }
 
 model Movie {
-  id Int @id @default(autoincrement())
-  title String
-  description String
+  id           Int      @id @default(autoincrement())
+  title        String
+  description  String
   release_date DateTime
-  poster_url String
-  age_rating Int
+  poster_url   String
+  age_rating   Int
   ticket_price Int
-  orders Order[]
+  orders       Order[]
 }
 
-model Order{
-  id Int @id @default(autoincrement())
+model Order {
+  id         Int      @id @default(autoincrement())
   order_Date DateTime
-  userId Int?
-  movieId Int? 
-  user User? @relation(fields: [userId], references: [id])
-  movie Movie? @relation(fields: [movieId], references: [id])
+  userId     Int?
+  movieId    Int?
+  movie      Movie?   @relation(fields: [movieId], references: [id])
+  user       User?    @relation(fields: [userId], references: [id])
 }
-
-
-
-

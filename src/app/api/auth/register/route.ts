@@ -1,4 +1,6 @@
 import UserHandler from "@/app/handlers/userHandler";
+import prisma from "@/lib/prisma";
+import { hash } from "bcrypt";
 import { NextResponse } from "next/server";
 
 export async function POST(req : NextResponse) {
