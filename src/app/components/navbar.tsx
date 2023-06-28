@@ -1,6 +1,16 @@
+'use client'
+
 import Link from "next/link"
+import axios from "axios"
 
 const Navbar = () => {
+
+    const seed = async () => {
+      // await seedData()
+      const res = await axios.get('/api/movies')
+      console.log(res)
+    }
+
     return <nav className="bg-gray-800 px-6 py-3">
     <div className="text-xl max-w-full mx-auto px-4 sm:px-6 lg:px-8">
       <div className="flex items-center justify-between h-16">

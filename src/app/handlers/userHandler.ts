@@ -7,6 +7,7 @@ class UserHandler{
                 email : email
             }
         })
+
         if(exists) return 'Failed'
         await client.user.create({
             data : { 
@@ -19,6 +20,8 @@ class UserHandler{
         })
         return 'Success'
     }
+
+    
 }
 
 export default UserHandler

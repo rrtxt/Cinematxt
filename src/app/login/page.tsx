@@ -3,7 +3,10 @@
 import Link from "next/link"
 import TextField from "../components/TextField"
 import MainLayout from "../layouts/main"
-import { useState } from "react"
+import { FormEventHandler, useEffect, useState } from "react"
+import { signIn, useSession} from 'next-auth/react'
+import { useRouter } from "next/navigation"
+import { toast } from "react-toastify"
 
 const LoginPage = () => {
     return (
@@ -16,13 +19,34 @@ const LoginPage = () => {
 }
 
 const LoginForm = () => {
+    const session = useSession()
+    const router = useRouter()
     const [data, setData] = useState({
         email : '',
         password : ''
     })
+
+    useEffect(() => {
+        if(session.status === 'authenticated'){
+            router.push('/dashboard')
+        }
+    })
+
+    const loginUser : FormEventHandler<HTMLFormElement> = async (e) => {
+        e.preventDefault()
+        const callback  = await signIn('credentials', {...data, redirect : false})
+        if(callback?.error){
+            toast.error(callback.error)
+        }
+
+        if(callback?.ok && !callback.error){
+            console.log(session.data?.user?.email)
+            toast.success('Logged in successfully')
+        }
+    }
     return (
         <div className="flex items-center justify-center">
-            <form className="border rounded-xl py-5 px-12 my-10">
+            <form className="border rounded-xl py-5 px-12 my-10" onSubmit={loginUser}>
                 <h1 className="text-center">Login</h1>
             <TextField
                 id='email'

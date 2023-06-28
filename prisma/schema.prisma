@@ -33,7 +33,7 @@ model order {
 model user {
   id       Int     @id @default(autoincrement())
   email    String  @unique(map: "User_email_key")
-  username String
+  username     String
   password String
   age      Int
   balance  Int?    @default(0)

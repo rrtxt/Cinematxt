@@ -1,6 +1,5 @@
 import MainLayout from "../layouts/main";
 import Card from "../components/card";
-import Movie from "../models/movie";
 import Link from "next/link";
 import MovieHandler from "../handlers/movieHandler";
 
