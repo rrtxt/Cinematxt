@@ -6,7 +6,7 @@ import MainLayout from "../layouts/main"
 import { FormEventHandler, useState } from "react"
 import { useRouter } from "next/navigation"
 import axios from "axios"
-import { toast } from "react-toastify"
+import { toast } from "react-hot-toast"
 
 const RegisterPage = () => {
     return (
@@ -36,7 +36,13 @@ const RegisterForm = () => {
                 router.push('login')   
             });
         } catch (e) {
-            toast.error('Something went wrong!')
+            setData({
+                email : '',
+                username : '',
+                password : '',
+                age : 0
+            })
+            toast('Something went wrong!')
         }
     }
 

@@ -1,3 +1,4 @@
+import User from "@/app/models/user"
 import client from "@/lib/prisma"
 import { compare } from "bcrypt"
 import { NextAuthOptions } from "next-auth"
@@ -33,18 +34,29 @@ export const authOptions : NextAuthOptions = {
         })
     ],
     callbacks: {
-        session: ({ session, token }) => {
+        session: async ({ session, token }) => {
+          const currentUser : User|null = await client.user.findUnique({
+            where : {
+              id : Number(token.id)
+            },
+            select : {
+              id : true,
+              email : true,
+              username : true,
+              age : true,
+              balance : true
+            }
+          })
           return {
             ...session,
             user: {
-              ...session.user,
-              id: token.id,
+              ...currentUser
             },
           }
         },
         jwt: ({ token, user }) => {
           if (user) {
-            const u = user as unknown as any
+            const u = user
             return {
               ...token,
               id: u.id,

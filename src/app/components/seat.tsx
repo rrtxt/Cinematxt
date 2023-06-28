@@ -1,6 +1,7 @@
 'use client'
 
 import { ReactNode, useState } from "react"
+import { toast } from "react-hot-toast"
 
 type ValidFunction = (param1 : number, param2 : boolean) => boolean
 
@@ -14,12 +15,11 @@ const Seat = ({id, onChange} : {id : number, onChange : ValidFunction}) => {
         // setIsSelected(newIsSelected);
         const valid : boolean = onChange(id, isSelected); // Invoke onChange with new isSelected value
         setIsValid(valid); // Update isValid state with the returned valid value
-        console.log(valid)
         if (valid) {
           setIsSelected(newIsSelected);
         }
         else{
-            alert('You can only order 6 seat')
+            toast.error('You can only order 6 seat')
         }
       };
 

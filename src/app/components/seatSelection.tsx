@@ -3,10 +3,10 @@
 import Movie from "@/app/models/movie";
 import Seat from "@/app/components/seat";
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 
 const SeatSelection = ({movie} : {movie : Movie|null}) => {
     const [selectedSeat, setSelectedSeat] = useState<number[]>([])
-    // const [isValid, setIsValid] = useState<boolean>(true)
     const data = Array.from({ length: 64 }, (_, index) => ({ id: index + 1, seatNumber: `${index + 1}` }));
 
     const addSeat = (seat: number): boolean => {
@@ -19,7 +19,6 @@ const SeatSelection = ({movie} : {movie : Movie|null}) => {
             setSelectedSeat(newSelectedSeat);
           } else {
             newIsValid = false; // Update newIsValid as false if seat limit exceeded
-            // alert('You can select up to 6 seats.');
           }
         }
       // Update isValid state with newIsValid
