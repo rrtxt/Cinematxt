@@ -28,7 +28,7 @@ const LoginForm = () => {
 
     useEffect(() => {
         if(session.status === 'authenticated'){
-            router.push('/dashboard')
+            router.push('/profile')
         }
     })
 
