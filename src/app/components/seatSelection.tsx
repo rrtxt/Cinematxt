@@ -57,7 +57,6 @@ const SeatSelection = ({movie} : {movie : Movie}) => {
           alert('You cannot watch this movie')
           return
       }
-        console.log(selectedSeat)
         const data = {
           seats : selectedSeat,
           movieId : movie?.id,

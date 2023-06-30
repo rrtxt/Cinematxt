@@ -24,11 +24,11 @@ const Navbar = () => {
             <Link href={'/login'} className="text-gray-300 hover:bg-gray-700 hover:text-white px-6 py-2 rounded-md text-base font-medium">
               Login
             </Link>
-            {/* <Link href={'/dashboard'} className="text-gray-300 hover:bg-gray-700 hover:text-white px-6 py-2 rounded-md text-base font-medium">
-              Dashboard
-            </Link> */}
             <Link href={'/movies'} className="text-gray-300 hover:bg-gray-700 hover:text-white px-6 py-2 rounded-md text-base font-medium">
               Movies
+            </Link>
+            <Link href={'/order'} className="text-gray-300 hover:bg-gray-700 hover:text-white px-6 py-2 rounded-md text-base font-medium">
+              Order
             </Link>
             <Link href={'/profile'} className="text-gray-300 hover:bg-gray-700 hover:text-white px-6 py-2 rounded-md text-base font-medium">
               Profile

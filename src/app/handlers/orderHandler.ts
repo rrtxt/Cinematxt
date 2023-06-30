@@ -1,6 +1,15 @@
 import client from "@/lib/prisma"
 
 class OrderHandler {
+    static getOrderbyUserId = async ({userId} : {userId : number}) => {
+        const orders = await client.order.findMany({
+            where : {
+                userId
+            }
+        })
+
+        return orders
+    }
     static addOrder = async ({seats, orderDate, userId, movieId} : 
         {seats : number[], orderDate : Date, userId : number, movieId : number }) => {
             try { 

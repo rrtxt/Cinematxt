@@ -28,7 +28,7 @@ const LoginForm = () => {
 
     useEffect(() => {
         if(session.status === 'authenticated'){
-            router.push('/profile')
+            router.push('/movies')
         }
     })
 
@@ -37,6 +37,7 @@ const LoginForm = () => {
         const callback  = await signIn('credentials', {...data, redirect : false})
         if(callback?.error){
             // toast.error(callback.error)
+            alert(callback?.error)
         }
 
         if(callback?.ok && !callback.error){
