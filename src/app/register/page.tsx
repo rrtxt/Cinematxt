@@ -6,7 +6,6 @@ import MainLayout from "../layouts/main"
 import { FormEventHandler, useState } from "react"
 import { useRouter } from "next/navigation"
 import axios from "axios"
-import { toast } from "react-hot-toast"
 
 const RegisterPage = () => {
     return (
@@ -31,7 +30,7 @@ const RegisterForm = () => {
         e.preventDefault()
         try {
             await axios.post('/api/auth/register', data)
-            toast.success('Account created! Redirecting to login...')
+            // toast.success('Account created!')
             setTimeout(() => {
                 router.push('login')   
             });
@@ -42,7 +41,7 @@ const RegisterForm = () => {
                 password : '',
                 age : 0
             })
-            toast('Something went wrong!')
+            // toast('Something went wrong!')
         }
     }
 

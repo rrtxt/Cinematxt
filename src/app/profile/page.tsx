@@ -2,7 +2,6 @@
 
 import { useSession } from "next-auth/react"
 import MainLayout from "../layouts/main"
-import User from "../models/user"
 
 const ProfilePage = () => {
 

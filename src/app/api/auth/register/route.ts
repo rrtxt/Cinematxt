@@ -1,7 +1,7 @@
 import UserHandler from "@/app/handlers/userHandler";
 import { NextResponse } from "next/server";
 
-export async function POST(req : NextResponse) {
+export async function POST(req : Request) {
     const { username, email, age, password } = await req.json()
     const res = await UserHandler.registerUser({username, email, age, password})
     if(res === 'Failed') 

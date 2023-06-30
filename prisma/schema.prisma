@@ -21,6 +21,8 @@ model movie {
 model order {
   id         Int      @id @default(autoincrement())
   order_Date DateTime
+  seat       String
+  isPaid     Boolean @default(false)
   userId     Int?
   movieId    Int?
   movie      movie?   @relation(fields: [movieId], references: [id], map: "Order_movieId_fkey")

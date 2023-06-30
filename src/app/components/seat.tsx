@@ -1,7 +1,6 @@
 'use client'
 
 import { ReactNode, useState } from "react"
-import { toast } from "react-hot-toast"
 
 type ValidFunction = (param1 : number, param2 : boolean) => boolean
 
@@ -19,7 +18,7 @@ const Seat = ({id, onChange} : {id : number, onChange : ValidFunction}) => {
           setIsSelected(newIsSelected);
         }
         else{
-            toast.error('You can only order 6 seat')
+            alert('You can only order up to 6 seats')
         }
       };
 

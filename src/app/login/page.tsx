@@ -6,7 +6,7 @@ import MainLayout from "../layouts/main"
 import { FormEventHandler, useEffect, useState } from "react"
 import { signIn, useSession} from 'next-auth/react'
 import { useRouter } from "next/navigation"
-import { toast } from "react-toastify"
+// import { toast } from "react-toastify"
 
 const LoginPage = () => {
     return (
@@ -36,12 +36,12 @@ const LoginForm = () => {
         e.preventDefault()
         const callback  = await signIn('credentials', {...data, redirect : false})
         if(callback?.error){
-            toast.error(callback.error)
+            // toast.error(callback.error)
         }
 
         if(callback?.ok && !callback.error){
             console.log(session.data?.user?.email)
-            toast.success('Logged in successfully')
+            // toast.success('Logged in successfully')
         }
     }
     return (
