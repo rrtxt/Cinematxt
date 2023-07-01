@@ -1,5 +1,6 @@
 import client from "@/lib/prisma"
 import Order from "../models/order"
+import { order } from "@prisma/client"
 
 class OrderHandler {
     static getOrderbyUserId = async ({userId} : {userId : number}) => {
@@ -15,6 +16,21 @@ class OrderHandler {
 
         return orders
     }
+
+    static getOrderById = async ({id} : {id : number}) => {
+        const order = await client.order.findUnique({
+            where : {
+                id
+            },
+            include : {
+                movie : true,
+                user : true
+            }
+        })
+
+        return order
+    }
+
     static addOrder = async ({seats, orderDate, userId, movieId} : 
         {seats : number[], orderDate : Date, userId : number, movieId : number }) => {
             try { 
@@ -41,6 +57,31 @@ class OrderHandler {
                 console.error(e)
                 return 'Failed'
             }
+    }
+
+    static updateOrder = async ({id, updatedData} : {id : number, updatedData : order}) => {
+        try{
+            const updatedOrder = await client.order.update({
+                where : {
+                    id
+                },
+                data : {
+                    isPaid : updatedData.isPaid
+                }
+            })
+            return 'Success'
+        } catch (e) {
+            console.error(e)
+            return 'Failed'
+        }
+    }
+
+    static deleteOrder = async ({id} : {id : number}) => {
+        await client.order.delete({
+            where : {
+                id
+            }
+        })
     }
 }
 

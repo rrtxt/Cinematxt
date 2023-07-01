@@ -28,13 +28,15 @@ const OrderLists = () => {
         },})
 
     const user = session.data?.user
-    const userId = user?.id
+    const userId : number = user?.id
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const res = await axios.get(`/api/order/${userId}`)
-                setOrder(res.data.data)
+                const resOrders : Order[]= res.data.data
+                const unpaidOrders = resOrders.filter(order => order.isPaid === false)
+                setOrder(unpaidOrders)
             } catch (e) {
                 console.error(e);
             }
@@ -42,20 +44,31 @@ const OrderLists = () => {
 
         fetchData()
     }, [userId])
-
-    orders.forEach((order) => {
-        console.log(new Date(order.order_Date))
-    })
     
+    const PayOrder = async ({orderId} : {orderId : number}) => {
+      const data = {
+        userId,
+        orderId,
+      }
+      try{
+        const res = await axios.patch('/api/order', data)
+        setTimeout(() => {
+          router.refresh()
+        });
+      } catch (e) {
+        alert('Something went wrong!')
+      }
+
+    }
 
     return (
         <div className="mt-5 mx-10">
             <h2 className="text-2xl font-medium">Order List</h2>
             <div>
-            <table className="min-w-full divide-y divide-gray-200">
+            <table className="mt-5 min-w-full divide-y divide-gray-200">
                 <thead>
                   <tr>
-                    <th className="px-4 py-2">Index</th>
+                    <th className="px-4 py-2">No</th>
                     <th className="px-4 py-2">Movie Name</th>
                     <th className="px-4 py-2">Order Date</th>
                     <th className="px-4 py-2">Price</th>
@@ -73,14 +86,12 @@ const OrderLists = () => {
                       <td className="px-4 py-2">{order.movie.ticket_price}</td>
                       <td className="px-4 py-2">{order.seat}</td>
                       <td className="px-4 py-2">
-                        <button
-                          className="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600">
+                        <button onClick={() => PayOrder({orderId : order.id})} className=" px-10 py-1 bg-blue-500 text-white rounded hover:bg-blue-600">
                           Pay
                         </button>
                       </td>
                       <td className="px-4 py-2">
-                        <button
-                          className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600">
+                        <button className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600">
                           Cancel
                         </button>
                       </td>
