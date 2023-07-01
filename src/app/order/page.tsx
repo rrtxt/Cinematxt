@@ -52,41 +52,42 @@ const OrderLists = () => {
         <div className="mt-5 mx-10">
             <h2 className="text-2xl font-medium">Order List</h2>
             <div>
-                <table>
-                    <thead>
-                      <tr>
-                        <th>Index</th>
-                        <th>Movie Name</th>
-                        <th>Order Date</th>
-                        <th>Price</th>
-                        <th>Seat</th>
-                        <th></th>
-                        <th></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {orders.map((order, index) => (
-                        <tr key={index}>
-                          <td>{index + 1}</td>
-                          <td>{order.movie.title}</td>
-                          <td>{formatDate(new Date(order.order_Date))}</td>
-                          <td>{order.movie.ticket_price}</td>
-                          <td>{order.seat}</td>
-                          <td>
-                            <button>
-                              Pay
-                            </button>
-                          </td>
-                          <td>
-                            <button>
-                              Cancel
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                </table>
-
+            <table className="min-w-full divide-y divide-gray-200">
+                <thead>
+                  <tr>
+                    <th className="px-4 py-2">Index</th>
+                    <th className="px-4 py-2">Movie Name</th>
+                    <th className="px-4 py-2">Order Date</th>
+                    <th className="px-4 py-2">Price</th>
+                    <th className="px-4 py-2">Seat</th>
+                    <th className="px-4 py-2"></th>
+                    <th className="px-4 py-2"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {orders.map((order, index) => (
+                    <tr key={index} className="text-center">
+                      <td className="px-4 py-2">{index + 1}</td>
+                      <td className="px-4 py-2">{order.movie.title}</td>
+                      <td className="px-4 py-2">{formatDate(new Date(order.order_Date))}</td>
+                      <td className="px-4 py-2">{order.movie.ticket_price}</td>
+                      <td className="px-4 py-2">{order.seat}</td>
+                      <td className="px-4 py-2">
+                        <button
+                          className="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600">
+                          Pay
+                        </button>
+                      </td>
+                      <td className="px-4 py-2">
+                        <button
+                          className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600">
+                          Cancel
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+            </table>
             </div>
         </div>
     )
