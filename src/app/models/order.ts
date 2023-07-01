@@ -3,16 +3,16 @@ import User from "./user"
 
 class Order {
     id : number
-    orderDate : Date
+    order_Date : Date
     user : User
     movie : Movie
     seat : string
     isPaid : boolean
 
-    constructor({id, orderDate, user, movie, seat, isPaid = false} : 
-        {id : number, orderDate : Date, user : User, movie : Movie, seat : string, isPaid : boolean}){
+    constructor({id, order_Date, user, movie, seat, isPaid = false} : 
+        {id : number, order_Date : Date, user : User, movie : Movie, seat : string, isPaid : boolean}){
         this.id = id
-        this.orderDate = orderDate
+        this.order_Date = order_Date
         this.user = user
         this.movie = movie
         this.seat = seat
