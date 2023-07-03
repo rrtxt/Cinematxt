@@ -43,7 +43,7 @@ const OrderLists = () => {
         }
 
         fetchData()
-    }, [userId])
+    },)
     
     const PayOrder = async ({orderId} : {orderId : number}) => {
       const data = {
@@ -53,7 +53,7 @@ const OrderLists = () => {
       try{
         const res = await axios.patch('/api/order', data)
         setTimeout(() => {
-          router.refresh()
+          router.push('/order')
         });
       } catch (e) {
         alert('Something went wrong!')

@@ -25,10 +25,18 @@ class UserHandler{
     static getUserById = async ({id} : {id : number}) => {
         const user : User|null = await client.user.findUnique({
             where : {
-                id
+              id
+            },
+            select : {
+              id : true,
+              email : true,
+              username : true,
+              age : true,
+              balance : true
             }
-        })
-        return user
+          })
+
+          return user
     }
 
     static updateUser = async ({id, updatedData} : {id : number, updatedData : User}) => {
