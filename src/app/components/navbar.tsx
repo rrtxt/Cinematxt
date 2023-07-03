@@ -2,8 +2,12 @@
 
 import Link from "next/link"
 import axios from "axios"
+import { useSession } from "next-auth/react"
+import { useState } from "react"
 
 const Navbar = () => {
+  const session = useSession()
+  const [isAuth, setIsAuth] = useState<boolean>(session.status === 'authenticated')
 
     const seed = async () => {
       // await seedData()
@@ -21,18 +25,37 @@ const Navbar = () => {
         </div>
         <div className="hidden md:block">
           <div className="flex items-center space-x-2">
-            <Link href={'/login'} className="text-gray-300 hover:bg-gray-700 hover:text-white px-6 py-2 rounded-md text-base font-medium">
+            {!isAuth ? (
+              <div>
+                <Link href={'/login'} className="text-gray-300 hover:bg-gray-700 hover:text-white px-6 py-2 rounded-md text-base font-medium">
+                  Login
+                </Link>
+                <Link href={'/movies'} className="text-gray-300 hover:bg-gray-700 hover:text-white px-6 py-2 rounded-md text-base font-medium">
+                  Movies
+                </Link>
+              </div>
+            ) : (
+              <div>
+                <Link href={'/movies'} className="text-gray-300 hover:bg-gray-700 hover:text-white px-6 py-2 rounded-md text-base font-medium">
+                  Movies
+                </Link>
+                <Link href={'/order'} className="text-gray-300 hover:bg-gray-700 hover:text-white px-6 py-2 rounded-md text-base font-medium">
+                  Order
+                </Link>
+                <Link href={'/payment'} className="text-gray-300 hover:bg-gray-700 hover:text-white px-6 py-2 rounded-md text-base font-medium">
+                  Payment
+                </Link>
+                <Link href={'/balance'} className="text-gray-300 hover:bg-gray-700 hover:text-white px-6 py-2 rounded-md text-base font-medium">
+                  Balance
+                </Link>
+                <Link href={'/profile'} className="text-gray-300 hover:bg-gray-700 hover:text-white px-6 py-2 rounded-md text-base font-medium">
+                  Profile
+                </Link>
+              </div>
+            )}
+            {/* <Link href={'/login'} className="text-gray-300 hover:bg-gray-700 hover:text-white px-6 py-2 rounded-md text-base font-medium">
               Login
-            </Link>
-            <Link href={'/movies'} className="text-gray-300 hover:bg-gray-700 hover:text-white px-6 py-2 rounded-md text-base font-medium">
-              Movies
-            </Link>
-            <Link href={'/order'} className="text-gray-300 hover:bg-gray-700 hover:text-white px-6 py-2 rounded-md text-base font-medium">
-              Order
-            </Link>
-            <Link href={'/profile'} className="text-gray-300 hover:bg-gray-700 hover:text-white px-6 py-2 rounded-md text-base font-medium">
-              Profile
-            </Link>
+            </Link> */}
           </div>
         </div>
       </div>

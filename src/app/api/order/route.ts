@@ -17,11 +17,13 @@ export async function PATCH(req : Request){
     const { userId, orderId } = await req.json()
     const order = await OrderHandler.getOrderById({id : orderId})
     const user = order?.user
-    if(!order || !user){
-        return NextResponse.json({message : 'Failed'}, {status : 404})
-    }
     //@ts-expect-error
     const remainingBalance = user?.balance - order?.movie.ticket_price
+
+    if(!order || !user || remainingBalance < 0){
+        return NextResponse.json({message : 'Failed'}, {status : 404})
+    }
+    
     await OrderHandler.updateOrder({
         id : orderId,
         updatedData : {

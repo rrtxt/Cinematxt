@@ -33,7 +33,7 @@ const OrderLists = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await axios.get(`/api/order/${userId}`)
+                const res = await axios.get(`/api/order/user/${userId}`)
                 const resOrders : Order[]= res.data.data
                 const unpaidOrders = resOrders.filter(order => order.isPaid === false)
                 setOrder(unpaidOrders)
@@ -52,9 +52,13 @@ const OrderLists = () => {
       }
       try{
         const res = await axios.patch('/api/order', data)
-        setTimeout(() => {
-          router.push('/order')
-        });
+        if(res.data.message === 'Failed'){
+          alert('Not enough balance')
+        } else {
+          setTimeout(() => {
+            router.push('/order')
+          })
+        }
       } catch (e) {
         alert('Something went wrong!')
       }

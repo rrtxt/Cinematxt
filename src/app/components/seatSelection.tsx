@@ -49,13 +49,18 @@ const SeatSelection = ({movie} : {movie : Movie}) => {
 
     const handleSubmit : FormEventHandler<HTMLFormElement> = async (e) => {
       e.preventDefault()
+      if(session.status === 'unauthenticated'){
+        router.push('/login')
+        return
+      }
+
       if(selectedSeat.length === 0){
         alert('Please select atleast one seat')
         return
       }
       if(user?.age < movie?.age_rating){
-          alert('You cannot watch this movie')
-          return
+        alert('You cannot watch this movie')
+        return
       }
         const data = {
           seats : selectedSeat,
