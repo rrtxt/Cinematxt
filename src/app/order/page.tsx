@@ -52,17 +52,25 @@ const OrderLists = () => {
       }
       try{
         const res = await axios.patch('/api/order', data)
-        if(res.data.message === 'Failed'){
-          alert('Not enough balance')
-        } else {
           setTimeout(() => {
             router.push('/order')
           })
-        }
       } catch (e) {
+        console.log(e);
         alert('Something went wrong!')
       }
+    }
 
+    const CancelOrder = async ({orderId} : {orderId : number}) => {
+      try {
+        const res = await axios.delete(`/api/order/${orderId}`)
+        setTimeout(() => {
+          router.push('/order')
+        })
+      } catch (e) {
+        console.log(e)
+        alert('Something went wrong!')
+      }
     }
 
     return (
@@ -95,7 +103,7 @@ const OrderLists = () => {
                         </button>
                       </td>
                       <td className="px-4 py-2">
-                        <button className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600">
+                        <button onClick={() => CancelOrder({orderId : order.id})} className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600">
                           Cancel
                         </button>
                       </td>

@@ -1,4 +1,13 @@
+'use client'
+
+import { useSession } from "next-auth/react"
 import MainLayout from "../layouts/main"
+import { useRouter } from "next/navigation"
+import TextField from "../components/TextField"
+import { useEffect, useState } from "react"
+import User from "../models/user"
+import axios from "axios"
+import { log } from "console"
 
 const BalancePage = () => {
     return (
@@ -11,9 +20,70 @@ const BalancePage = () => {
 }
 
 const BalanecContent = () => {
+    const router = useRouter()
+    const session = useSession({
+        required : true,
+        onUnauthenticated() {
+            router.push('/login')
+        },
+    })
+    const [user, setUser] = useState<User>()
+    const [topupAmount, setTopupAmount] = useState<number>(0)
+    const [withdrawAmount, setWithdrawAmount] = useState<number>(0)
+    const userId = session.data?.user?.id
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            try{
+                const res = await axios.get(`/api/auth/user/${userId}`)
+                const currUser = res.data.user
+                setUser(currUser)
+            } catch (e) {
+                console.log(e);
+            }
+        }
+        fetchUser()
+    }, [userId])
+
     return (
         <div>
-            Balance
+            <div className="bg-black text-white mt-10 flex flex-col justify-center items-center">
+                <div className="bg-gray-800 p-8 rounded-lg">
+                    <div className="mb-4">
+                      <p className="text-lg">
+                        <strong>Your Balance: </strong>Rp. {user?.balance}
+                      </p>
+                    </div>
+                    <div>
+                        <TextField
+                          id='topup'
+                          type='number'
+                          label='Top-up'
+                          className="mt-5"
+                          name="username"
+                          isRequired={true}
+                          value={topupAmount}
+                          onChange={(e) => setTopupAmount(parseInt(e.target.value))}
+                        />
+                        <div className="bg-blue-500 text-center mt-5 mx-auto w-72 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                          Top Up
+                        </div>
+                        <TextField
+                          id='topup'
+                          type='number'
+                          label='Withdraw'
+                          className="mt-5"
+                          name="username"
+                          isRequired={true}
+                          value={withdrawAmount}
+                          onChange={(e) => setWithdrawAmount(parseInt(e.target.value))}
+                        />
+                        <div className="bg-yellow-500 text-center mt-5 mx-auto w-72 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
+                          Withdraw
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }

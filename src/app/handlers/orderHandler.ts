@@ -77,11 +77,17 @@ class OrderHandler {
     }
 
     static deleteOrder = async ({id} : {id : number}) => {
-        await client.order.delete({
-            where : {
-                id
-            }
-        })
+        try{
+            await client.order.delete({
+                where : {
+                    id
+                }
+            })
+            return 'Success'
+        } catch (e) {
+            console.error(e)
+            return 'Failed'
+        }
     }
 }
 
