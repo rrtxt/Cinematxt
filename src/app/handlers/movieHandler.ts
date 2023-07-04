@@ -11,6 +11,9 @@ class MovieHandler{
         const movie : Movie|null = await client.movie.findUnique({
             where : {
                 id : movieId
+            },
+            include : {
+                order : true
             }
         })
         return movie

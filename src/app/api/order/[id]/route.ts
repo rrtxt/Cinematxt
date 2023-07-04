@@ -5,7 +5,6 @@ export async function DELETE(req : Request){
     const orderId = req.url.slice(req.url.lastIndexOf('/') + 1)
     const id = parseInt(orderId)
     const res = await OrderHandler.deleteOrder({id})
-    console.log(res);
     if(res === 'Failed'){
         return NextResponse.json({message : 'Order is not found'}, {status : 404})
     } else {

@@ -2,17 +2,31 @@
 
 import Movie from "@/app/models/movie";
 import Seat from "@/app/components/seat";
-import { FormEventHandler, useState } from "react";
+import { FormEventHandler, useEffect, useState } from "react";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import Order from "../models/order";
 
 const SeatSelection = ({movie} : {movie : Movie}) => {
     const [selectedSeat, setSelectedSeat] = useState<number[]>([])
+    const [occupiedSeats, setOccupiedSeats] = useState<number[]>([])
     const session = useSession()
     const router = useRouter()
     const data = Array.from({ length: 64 }, (_, index) => ({ id: index + 1, seatNumber: `${index + 1}` }));
     const user = session.data?.user
+    const movieId = movie.id
+
+    useEffect(() => {
+      const fetchData = async () => {
+        const res = await axios.get(`/api/movie/${movieId}`)
+        const orders : Order[] = res.data.movie.order
+        const seats = orders.map((order: Order) => parseInt(order.seat));
+        setOccupiedSeats(seats);
+      }
+
+      fetchData()
+    }, [])
 
     const addSeat = (seat: number): boolean => {
         let newIsValid = true; // Initialize newIsValid as true
@@ -89,7 +103,7 @@ const SeatSelection = ({movie} : {movie : Movie}) => {
                   <div key={rowIndex} className="flex flex-row gap-3">
                     {data.slice(rowIndex * cols, rowIndex * cols + cols).map((item) => (
                       <div key={item.id} className="flex flex-col mb-3">
-                       <Seat onChange={handleChange} id={item.id}/> 
+                       <Seat isOccupied={occupiedSeats.includes(item.id)} onChange={handleChange} id={item.id}/> 
                       </div>
                     ))}
                   </div>

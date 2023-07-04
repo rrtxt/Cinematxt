@@ -89,8 +89,6 @@ const BalanecContent = () => {
             console.error(e)
             alert('Something went wrong!')
         }
-
-
     }
 
     return (
