@@ -40,12 +40,19 @@ class UserHandler{
     }
 
     static updateUser = async ({id, updatedData} : {id : number, updatedData : User}) => {
-        await client.user.update({
-            where : {
-                id
-            },
-            data : updatedData
-        })
+        try {
+            await client.user.update({
+                where : {
+                    id
+                },
+                data : updatedData
+            })
+
+            return 'Success'
+        } catch (e) {
+            console.error(e)
+            return 'Failed'
+        }
     }
 }
 

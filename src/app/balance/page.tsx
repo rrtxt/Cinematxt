@@ -7,7 +7,7 @@ import TextField from "../components/TextField"
 import { useEffect, useState } from "react"
 import User from "../models/user"
 import axios from "axios"
-import { log } from "console"
+import { error } from "console"
 
 const BalancePage = () => {
     return (
@@ -45,6 +45,27 @@ const BalanecContent = () => {
         fetchUser()
     }, [userId])
 
+    const TopUp = async () => {
+        if(topupAmount <= 0){
+            alert('Please fill top up amount')
+            return
+        }
+        try {
+            const updatedBalance = user.balance + topupAmount
+            const updatedUser : User = {
+                ...user,
+                balance : updatedBalance
+            } 
+            console.log(updatedUser)
+            await axios.patch(`/api/auth/user/${userId}`, updatedUser)
+            setUser(updatedUser)
+            alert('Top Up Success')
+        } catch (e) {
+            console.error(e)
+            alert('Something went wrong!')
+        }
+    }
+
     return (
         <div>
             <div className="bg-black text-white mt-10 flex flex-col justify-center items-center">
@@ -65,7 +86,7 @@ const BalanecContent = () => {
                           value={topupAmount}
                           onChange={(e) => setTopupAmount(parseInt(e.target.value))}
                         />
-                        <div className="bg-blue-500 text-center mt-5 mx-auto w-72 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        <div onClick={() => {TopUp()}} className="bg-blue-500 text-center mt-5 mx-auto w-72 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                           Top Up
                         </div>
                         <TextField
