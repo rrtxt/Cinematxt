@@ -84,7 +84,7 @@ const SeatSelection = ({movie} : {movie : Movie}) => {
         try{
           await axios.post('/api/order', data)
           setTimeout(() => {
-            router.push('/order')
+            router.push('/payment')
           })
         } catch (e){
           alert('Something went wrong!')

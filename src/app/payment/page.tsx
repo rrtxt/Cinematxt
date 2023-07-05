@@ -8,7 +8,7 @@ import Order from "../models/order"
 import { useRouter } from "next/navigation"
 import formatDate from "@/helpers/dateFormat"
 
-const OrderPage = () => {
+const PaymentPage = () => {
     return (
         <div>
             <MainLayout>
@@ -35,8 +35,8 @@ const OrderLists = () => {
             try {
                 const res = await axios.get(`/api/order/user/${userId}`)
                 const resOrders : Order[]= res.data.data
-                // const unpaidOrders = resOrders.filter(order => order.isPaid === false)
-                setOrder(resOrders)
+                const unpaidOrders = resOrders.filter(order => order.isPaid === false)
+                setOrder(unpaidOrders)
             } catch (e) {
                 console.error(e);
             }
@@ -44,10 +44,38 @@ const OrderLists = () => {
 
         fetchData()
     },)
+    
+    const PayOrder = async ({orderId} : {orderId : number}) => {
+      const data = {
+        userId,
+        orderId,
+      }
+      try{
+        const res = await axios.patch('/api/order', data)
+          setTimeout(() => {
+            router.push('/order')
+          })
+      } catch (e) {
+        console.log(e);
+        alert('Something went wrong!')
+      }
+    }
+
+    const CancelOrder = async ({orderId} : {orderId : number}) => {
+      try {
+        const res = await axios.delete(`/api/order/${orderId}`)
+        setTimeout(() => {
+          router.push('/order')
+        })
+      } catch (e) {
+        console.log(e)
+        alert('Something went wrong!')
+      }
+    }
 
     return (
         <div className="mt-5 mx-10">
-            <h2 className="text-2xl font-medium">Order List</h2>
+            <h2 className="text-2xl font-medium">Payment List</h2>
             <div>
             <table className="mt-5 min-w-full divide-y divide-gray-200">
                 <thead>
@@ -57,7 +85,8 @@ const OrderLists = () => {
                     <th className="px-4 py-2">Order Date</th>
                     <th className="px-4 py-2">Price</th>
                     <th className="px-4 py-2">Seat</th>
-                    <th className="px-4 py-2">Paid</th>
+                    <th className="px-4 py-2"></th>
+                    <th className="px-4 py-2"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -68,7 +97,16 @@ const OrderLists = () => {
                       <td className="px-4 py-2">{formatDate(new Date(order.order_Date))}</td>
                       <td className="px-4 py-2">{order.movie.ticket_price}</td>
                       <td className="px-4 py-2">{order.seat}</td>
-                      <td className="px-4 py-2">{order.isPaid? 'Yes' : 'No'}</td>
+                      <td className="px-4 py-2">
+                        <button onClick={() => PayOrder({orderId : order.id})} className=" px-10 py-1 bg-blue-500 text-white rounded hover:bg-blue-600">
+                          Pay
+                        </button>
+                      </td>
+                      <td className="px-4 py-2">
+                        <button onClick={() => CancelOrder({orderId : order.id})} className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600">
+                          Cancel
+                        </button>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -78,4 +116,4 @@ const OrderLists = () => {
     )
 }
 
-export default OrderPage
+export default PaymentPage
