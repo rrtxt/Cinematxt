@@ -1,15 +1,15 @@
-### CinemaTxt
+# CinemaTxt
 
 CinemaTxt is a movie ticket booking website built with Next.js, allowing users to easily order tickets for currently playing movies. This repository contains the source code and project files for the CinemaTxt website.
 
-# Features
+### Features
 - Browse for currently playing movies.
 - View movie details such as title, synopsis, ratings, and ticket price.
 - Select preferred seats and book tickets.
 - Secure payment processing for ticket purchases.
 - User registration and authentication system.
 
-# Technologies Used
+### Technologies Used
 - Next.js framework for server-rendered React applications.
 - React for building the user interface.
 - TypeScript for static typing.
@@ -17,7 +17,7 @@ CinemaTxt is a movie ticket booking website built with Next.js, allowing users t
 - Tailwind CSS for styling the components.
 - MySQL database for storing movie and user information.
 
-# Installation
+### Installation
 1. Clone the repository:
 
 ``` bash
