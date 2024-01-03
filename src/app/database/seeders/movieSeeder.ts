@@ -31,4 +31,6 @@ async function seedData() {
     }
 }
 
+seedData()
+
 export default seedData

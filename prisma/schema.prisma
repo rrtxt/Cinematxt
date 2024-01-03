@@ -10,7 +10,7 @@ datasource db {
 model movie {
   id           Int      @id @default(autoincrement())
   title        String
-  description  String
+  description  String   @db.Text
   release_date DateTime
   poster_url   String
   age_rating   Int
