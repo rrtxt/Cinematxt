@@ -51,11 +51,11 @@ const BalanecContent = () => {
             return
         }
         try {
-            const updatedBalance = user.balance + topupAmount
+            const updatedBalance : number = (user!.balance ?? 0) + topupAmount
             const updatedUser : User = {
                 ...user,
                 balance : updatedBalance
-            }
+            } as User
             await axios.patch(`/api/auth/user/${userId}`, updatedUser)
             setUser(updatedUser)
             alert('Top Up Success')
@@ -71,16 +71,16 @@ const BalanecContent = () => {
             alert ('Please fill withdraw amount!')
             return
         }
-        if(withdrawAmount > Math.min(user?.balance, 500000)){
+        if(withdrawAmount > Math.min(user?.balance!, 500000)){
             alert('You cannot withdraw at this amount!')
             return
         }
         try {
-            const updatedBalance = user?.balance - withdrawAmount
+            const updatedBalance = user?.balance! - withdrawAmount
             const updatedUser : User = {
                 ...user,
                 balance : updatedBalance
-            }
+            } as User
             await axios.patch(`/api/auth/user/${userId}`, updatedUser)
             setUser(updatedUser)
             alert('Withdraw Success')

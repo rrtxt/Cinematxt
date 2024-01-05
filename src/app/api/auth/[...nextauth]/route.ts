@@ -46,7 +46,7 @@ const authOptions : NextAuthOptions = {
               age : true,
               balance : true
             }
-          })
+          }) as User
           return {
             ...session,
             id : token.id,
