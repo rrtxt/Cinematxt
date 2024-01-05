@@ -1,5 +1,6 @@
 import OrderHandler from "@/app/handlers/orderHandler";
 import UserHandler from "@/app/handlers/userHandler";
+import User from "@/app/models/user";
 import client from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
