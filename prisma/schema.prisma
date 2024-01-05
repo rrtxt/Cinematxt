@@ -3,14 +3,14 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model movie {
   id           Int      @id @default(autoincrement())
   title        String
-  description  String   @db.Text
+  description  String   
   release_date DateTime
   poster_url   String
   age_rating   Int
@@ -25,8 +25,8 @@ model order {
   isPaid     Boolean @default(false)
   userId     Int?
   movieId    Int?
-  movie      movie?   @relation(fields: [movieId], references: [id], map: "Order_movieId_fkey")
-  user       user?    @relation(fields: [userId], references: [id], map: "Order_userId_fkey")
+  movie      movie?   @relation(fields: [movieId], references: [id], map: "movieId_fkey")
+  user       user?    @relation(fields: [userId], references: [id], map: "userId_fkey")
 
   @@index([movieId], map: "Order_movieId_fkey")
   @@index([userId], map: "Order_userId_fkey")
