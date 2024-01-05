@@ -28,7 +28,7 @@ const Profile = () => {
     })
     const [currentUser, setCurrentUser] = useState<User>()
     const user = session.data?.user
-    const userId : number = user?.id
+    const userId : number = user?.id ?? 0
 
     useEffect(() => {
       const fetchData = async () => {
