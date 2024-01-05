@@ -72,7 +72,7 @@ const SeatSelection = ({movie} : {movie : Movie}) => {
         alert('Please select atleast one seat')
         return
       }
-      if(user?.age < movie?.age_rating){
+      if(user!.age < movie?.age_rating){
         alert('You cannot watch this movie')
         return
       }
