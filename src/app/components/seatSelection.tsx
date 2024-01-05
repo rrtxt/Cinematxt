@@ -26,7 +26,7 @@ const SeatSelection = ({movie} : {movie : Movie}) => {
       }
 
       fetchData()
-    }, [])
+    }, [movieId])
 
     const addSeat = (seat: number): boolean => {
         let newIsValid = true; // Initialize newIsValid as true
