@@ -18,7 +18,7 @@ const MoviePage = async ({ params } : {params : {id : string}}) => {
     return (
         <MainLayout>
             <MovieDetail movie={movie}/>
-            <SeatSelection movie={movie}/>
+            <SeatSelection movie={movie!}/>
         </MainLayout>
     )
 }
